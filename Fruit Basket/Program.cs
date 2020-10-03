@@ -1,8 +1,5 @@
-﻿using Fruit_Basket;
-using Fruit_Basket.GameEngine;
-using FruitBasket.GameEngine;
+﻿using FruitBasket.GameEngine;
 using System;
-using System.Security.Cryptography.X509Certificates;
 
 namespace FruitBasket
 {
@@ -10,20 +7,20 @@ namespace FruitBasket
     {
         public static void DrawLine()
         {
-            Console.WriteLine(('|') + new string('=', 91) + ('|'));
+            Console.WriteLine(('|') + new string('=', 103) + ('|'));
         }
 
         public static void DrawInput(out string input)
         {
             DrawLine();
-            Console.Write($"{"Input number of players(2 - 8): ",60}");
+            Console.Write($"{"Input number of players(2 - 8): ",73}");
             input = Console.ReadLine();
             DrawLine();
         }
 
         private static bool AreAcceptableLimits(int input)
         {
-            if (input >= 1 && input <= 8)
+            if (input >= 2 && input <= 8)
             {
                 return true;
             }
@@ -32,25 +29,23 @@ namespace FruitBasket
 
         static void Main(string[] args)
         {
-            while (true){
-                string input;
-                var numberOfPlayers = 0;
+            string input;
+            var numberOfPlayers = 0;
+            DrawInput(out input);
+
+            while (!Int32.TryParse(input, out numberOfPlayers) || !AreAcceptableLimits(numberOfPlayers))
+            {
+                numberOfPlayers = 0;
+                Console.Clear();
                 DrawInput(out input);
-
-                while (!Int32.TryParse(input, out numberOfPlayers) || !AreAcceptableLimits(numberOfPlayers))
-                {
-                    numberOfPlayers = 0;
-                    Console.Clear();
-                    DrawInput(out input);
-                }
-
-                PlayingField field = PlayingField.CreatePlayingField(numberOfPlayers);
-
-                Console.WriteLine($"{'|'}{"Basket weigth:",46} {field.weight,5}kg. {'|',36}");
-                DrawLine();
-                field.Start();
-                Console.ReadLine();
             }
+
+            PlayingField field = PlayingField.CreatePlayingField(numberOfPlayers);
+
+            Console.WriteLine($"{'|'}{"Basket weigth:",54} {field.weight,5}kg. {'|',40}");
+            DrawLine();
+            field.Start();
+            Console.ReadLine();
         }
     }
 }

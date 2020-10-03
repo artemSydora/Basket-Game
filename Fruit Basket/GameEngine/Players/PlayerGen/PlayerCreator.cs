@@ -1,9 +1,7 @@
 ﻿using FruitBasket.Player;
 using FruitBasket.Player.Players;
-using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
-using System.Threading;
 
 namespace Fruit_Basket.GameEngine
 {
@@ -37,28 +35,17 @@ namespace Fruit_Basket.GameEngine
                     break;
             }
 
+            _playersList.Add(newPlayer);
             return newPlayer;
         }
 
-        public static DefaultPlayer GetPlayerInfo(int index)
+        public static IList<DefaultPlayer> Players
         {
-            if (index > 8 || index < 0)
+            get
             {
-                throw new Exception();
+              return _playersList.AsReadOnly();
             }
-            if (_playersList == null)
-            {
-                throw new Exception();
-            }
-
-            var tempList = new List<DefaultPlayer>();
-
-            foreach (var player in _playersList)
-            {
-                tempList.Add(player);
-            }
-
-            return tempList[index];
         }
+
     }
 }

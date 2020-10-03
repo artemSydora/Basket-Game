@@ -1,32 +1,43 @@
-﻿using System;
+﻿using Fruit_Basket.GameEngine;
+using FruitBasket.GameEngine;
+using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FruitBasket.Player.Players
 {
     class CheaterPlayer : DefaultPlayer
     {
-        private List<int> _numbersList = new List<int>();
-        protected Random random;
+        private Random _random;
 
-        public CheaterPlayer(string name, int playerId):
+        public CheaterPlayer(string name, int playerId) :
             base(name, playerId)
-        {   
-            random = new Random();
-            _numbersList.Add(random.Next(40, 140));
+        {
+            _random = new Random();
         }
 
         public override void GetNextNumber()
         {
-            _numbersList.Add(random.Next(40, 140));
+            var number = (byte)_random.Next(40, 140);
+
+            while (IsAlreadyTriedNumber(number))
+            {
+                number = (byte)_random.Next(40, 140);
+            }
+
+            _answersList.Add(number);
         }
 
-        public override int GetCurrentNumber()
+        private static bool IsAlreadyTriedNumber(byte number)
         {
-            var number = _numbersList[_numbersList.Count - 1];
-            return number;     
+            foreach (var player in PlayerCreator.Players)
+            {
+                if (player.Answers.Contains(number))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
-
-
     }
 }

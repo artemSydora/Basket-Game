@@ -1,30 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Fruit_Basket.GameEngine;
 
 namespace FruitBasket.Player.Players
 {
     class ThoroughCheaterPlayer : DefaultPlayer
     {
-        private List<int> _numbersList = new List<int>();
-        private int number = 40;
+        private byte number = 39;
 
         public ThoroughCheaterPlayer(string name, int playerId) :
-            base(name, playerId)
-        {
-            _numbersList = new List<int>();
-            _numbersList.Add(number);
-        }
+            base(name, playerId){}
+
         public override void GetNextNumber()
-        {        
+        {
             number++;
-            _numbersList.Add(number);
+
+            while (IsAlreadyTriedNumber(number))
+            {
+                number++;
+            }
+
+            _answersList.Add(number);
         }
 
-        public override int GetCurrentNumber()
+        private static bool IsAlreadyTriedNumber(byte number)
         {
-            var number = _numbersList[_numbersList.Count - 1];
-            return number;
+            foreach (var player in PlayerCreator.Players)
+            {
+                if (player.Answers.Contains(number))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

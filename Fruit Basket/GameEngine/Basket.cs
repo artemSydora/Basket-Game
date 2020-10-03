@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FruitBasket
 {
@@ -17,7 +15,7 @@ namespace FruitBasket
                 return _weigth;
             }
 
-           private set
+            private set
             {
                 _weigth = value;
             }
@@ -30,7 +28,7 @@ namespace FruitBasket
 
         private static Basket GetInstance()
         {
-            if(_instance == null)
+            if (_instance == null)
             {
                 _instance = new Basket();
             }
