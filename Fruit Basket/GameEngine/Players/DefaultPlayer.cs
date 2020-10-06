@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Fruit_Basket.GameEngine.Players.PlayerGen;
+using System.Collections.Generic;
 
 namespace FruitBasket.Player
 {
@@ -7,7 +8,7 @@ namespace FruitBasket.Player
         public string Name { get; private set; }
         public int PlayerId { get; private set; } = 0;
         protected List<byte> _answersList;
-
+       
         protected DefaultPlayer(string name, int playerId)
         {
             Name = name;

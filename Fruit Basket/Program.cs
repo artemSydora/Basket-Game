@@ -1,19 +1,23 @@
-﻿using FruitBasket.GameEngine;
+﻿using Fruit_Basket.GameEngine;
+using FruitBasket.GameEngine;
 using System;
+using System.Threading;
 
 namespace FruitBasket
 {
     class Program
     {
+        
+
         public static void DrawLine()
         {
-            Console.WriteLine(('|') + new string('=', 103) + ('|'));
+            Console.WriteLine(('|') + new string('=', 99) + ('|'));
         }
 
         public static void DrawInput(out string input)
         {
             DrawLine();
-            Console.Write($"{"Input number of players(2 - 8): ",73}");
+            Console.Write($"{"Input number of players(2 - 8): ",68}");
             input = Console.ReadLine();
             DrawLine();
         }
@@ -28,7 +32,7 @@ namespace FruitBasket
         }
 
         static void Main(string[] args)
-        {
+        {          
             string input;
             var numberOfPlayers = 0;
             DrawInput(out input);
@@ -42,9 +46,16 @@ namespace FruitBasket
 
             PlayingField field = PlayingField.CreatePlayingField(numberOfPlayers);
 
-            Console.WriteLine($"{'|'}{"Basket weigth:",54} {field.weight,5}kg. {'|',40}");
+            Console.WriteLine($"{'|'}{"Basket weigth:",54} {field.weight,5}kg. {'|',36}");
             DrawLine();
+            
             field.Start();
+            
+            Thread.CurrentThread.Join(1600);
+            DrawLine();
+
+            MessageHandler m = Display.ShowWinner;
+            m(Winner.GetWinner());
             Console.ReadLine();
         }
     }

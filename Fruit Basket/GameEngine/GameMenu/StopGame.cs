@@ -41,9 +41,9 @@ namespace FruitBasket.GameEngine
             return false;
         }
 
-        public static long GetTime()
+        public static ushort GetTime()
         {
-            return _timer.ElapsedMilliseconds;
+            return (ushort)_timer.ElapsedMilliseconds;
         }
 
 

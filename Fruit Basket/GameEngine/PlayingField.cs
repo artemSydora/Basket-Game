@@ -34,6 +34,7 @@ namespace FruitBasket.GameEngine
             }
 
             var newGame = new StartGame();
+            newGame.RegisterHandler(Display.ShowPlayerMoves);
 
             for (int i = 0; i < numberOfPlayers; i++)
             {
