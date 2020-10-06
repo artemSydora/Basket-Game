@@ -1,8 +1,5 @@
-﻿using Fruit_Basket.GameEngine;
-using System;
+﻿using Fruit_Basket.GameEngine.Players.PlayerGen;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading;
 
 namespace FruitBasket.Player
 {
@@ -10,16 +7,26 @@ namespace FruitBasket.Player
     {
         public string Name { get; private set; }
         public int PlayerId { get; private set; } = 0;
+        protected List<byte> _answersList;
        
         protected DefaultPlayer(string name, int playerId)
         {
             Name = name;
             PlayerId = playerId;
-        }        
+            _answersList = new List<byte>();
+        }
 
         public abstract void GetNextNumber();
-        public abstract int GetCurrentNumber();
 
+        public byte GetCurrentNumber()
+        {
+            var number = _answersList[_answersList.Count - 1];
+            return number;
+        }
 
+        public IList<byte> Answers
+        {
+            get { return _answersList.AsReadOnly(); }
+        }
     }
 }
